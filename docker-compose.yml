@@ -1,0 +1,19 @@
+version: "3.9"  
+services:
+  fastapi:
+    image: fernando1206/clasedevops:myimagev3
+    build: ./docker_fastapi
+    ports:
+      - "80:80"
+    depends_on:
+      - mysql
+  mysql:
+    image: fernando1206/clasedevops_mysql:myimagemysqlv1
+    build: ./docker_mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: fastapi
+    ports:
+      - "3306:3306"
